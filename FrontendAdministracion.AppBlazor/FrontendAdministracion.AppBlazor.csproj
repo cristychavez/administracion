@@ -27,7 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="Pages\Servicio\" />
+=======
+    <Folder Include="Pages\Mesa\" />
+>>>>>>> 8619255ed2157d7f7768247b24b41695ac2784a0
     <Folder Include="Pages\Reserva\" />
   </ItemGroup>
 

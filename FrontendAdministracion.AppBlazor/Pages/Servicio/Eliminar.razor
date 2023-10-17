@@ -1,0 +1,72 @@
+﻿@page "/servicio/eliminar/{id:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService _localStorageService
+
+<MudText Typo="Typo.h2" Class="ml">Eliminar Servicio</MudText>
+
+<MudGrid>
+    <MudItem xs="12" sm="7">
+        <MudPaper Class="pa-4">
+            <EditForm Model="servicio" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator />
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField Label="Nombre" @bind-Value="servicio.Nombre" For="@(() => servicio.Nombre)" />
+                        <MudDivider />
+
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" Class="ml-auto">Eliminar</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </EditForm>
+            @if (showLeaveAlert)
+            {
+                <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">Ocurrió un problema.</MudAlert>
+            }
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    private bool showLeaveAlert = false;
+    Servicio servicio = new Servicio();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Http.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", await _localStorageService.GetItemAsync<string>("token"));
+
+        var resp = await Http.GetStringAsync("servicio/" + id);
+        servicio = JsonSerializer.Deserialize<Servicio>(resp, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    }
+
+    private async Task OnValidSubmit(EditContext context)
+    {
+        await eliminar();
+    }
+
+    private async Task eliminar()
+    {
+
+        var httpResponse = await Http.DeleteAsync("servicio/" + servicio.Id);
+
+        if (!(httpResponse.StatusCode == System.Net.HttpStatusCode.OK))
+        {
+            showLeaveAlert = true;
+        }
+        else
+        {
+            NavigationManager.NavigateTo("servicio/index");
+        }
+    }
+
+    private void CloseMe(bool value)
+    {
+        showLeaveAlert = false;
+    }
+}
+
