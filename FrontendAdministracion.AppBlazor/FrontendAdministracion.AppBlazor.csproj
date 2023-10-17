@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Mesa\" />
     <Folder Include="Pages\Servicio\" />
     <Folder Include="Pages\Reserva\" />
   </ItemGroup>
