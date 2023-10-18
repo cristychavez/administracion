@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FrontendAdministracion.AppBlazor.Models
+namespace Reservas.AdministradorBlazor.Models
 {
     public class Rol
     {

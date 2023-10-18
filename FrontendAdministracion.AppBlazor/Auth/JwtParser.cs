@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Text.Json;
 
-namespace FrontendAdministracion.AppBlazor.Auth
+namespace DeptosES.AdministradorBlazor.Auth
 {
     public class JwtParser
     {
@@ -30,4 +30,3 @@ namespace FrontendAdministracion.AppBlazor.Auth
         }
     }
 }
-

@@ -1,10 +1,7 @@
-﻿using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components.Authorization;
-using System.Security.Claims;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace FrontendAdministracion.AppBlazor.Auth
+namespace DeptosES.AdministradorBlazor.Auth
 {
     public class Utilities
     {

@@ -1,0 +1,87 @@
+﻿@page "/reserva/editar/{id:int}"
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject ILocalStorageService _localStorageService
+
+<MudText Typo="Typo.h2" Class="ml">Editar Reserva</MudText>
+
+<MudGrid>
+    <MudItem xs="12" sm="7">
+        <MudPaper Class="pa-4">
+            <EditForm Model="municipio" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator />
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField Label="Nombre" @bind-Value="reserva.Nombre" For="@(() => reservareserva.Nombre)" />
+                        <MudTextField Label="Descripcion" @bind-Value="reserva.Descripcion" For="@(() => reserva.Descripcion)" />
+                        <MudTextField Label="Imagen" @bind-Value="reserva.Imagen" For="@(() => reserva.Imagen)" />
+                        <MudSelect Variant="Variant.Outlined" Label="Departamento" AnchorOrigin="Origin.BottomCenter"
+                        @bind-Value="reserva.IdDepartamento" For="@(() => reserva.IdDepartamento)">
+                            @foreach (var item in departamentos)
+                            {
+                                <MudSelectItem Value="@item.Id">@item.Nombre</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Guardar cambios</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </EditForm>
+            @if (showLeaveAlert)
+            {
+                <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">Ocurrió un problema.</MudAlert>
+            }
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+
+    private IEnumerable<Departamento> departamentos = new List<Departamento>();
+    private bool showLeaveAlert = false;
+    Reserva reserva = new Reserva();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Http.DefaultRequestHeaders.Authorization =
+        new AuthenticationHeaderValue("Bearer", await _localStorageService.GetItemAsync<string>("token"));
+        await getDepartamentos();
+
+        var resp = await Http.GetStringAsync("reserva/" + id);
+        reserva = JsonSerializer.Deserialize<Reserva>(resp, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    }
+
+    private async Task OnValidSubmit(EditContext context)
+    {
+        await saveChanges();
+    }
+
+    private async Task saveChanges()
+    {
+        var httpResponse = await Http.PutAsJsonAsync<Reserva>("reserva/" + reserva.Id, reserva);
+
+        if (!(httpResponse.StatusCode == System.Net.HttpStatusCode.OK))
+        {
+            showLeaveAlert = true;
+        }
+        else
+        {
+            NavigationManager.NavigateTo("reserva/index");
+        }
+    }
+
+    private void CloseMe(bool value)
+    {
+        showLeaveAlert = false;
+    }
+
+    private async Task getDepartamentos()
+    {
+        var httpResponse = await Http.GetStringAsync("departamento");
+        departamentos = JsonSerializer.Deserialize<IEnumerable<Departamento>>(httpResponse, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+    }
+    }

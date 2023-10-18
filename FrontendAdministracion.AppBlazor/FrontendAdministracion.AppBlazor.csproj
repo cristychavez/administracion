@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Pages\Resrvas\**" />
+    <Compile Remove="Pages\Servicio\**" />
     <Content Remove="Pages\Resrvas\**" />
+    <Content Remove="Pages\Servicio\**" />
     <EmbeddedResource Remove="Pages\Resrvas\**" />
+    <EmbeddedResource Remove="Pages\Servicio\**" />
     <None Remove="Pages\Resrvas\**" />
+    <None Remove="Pages\Servicio\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,8 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Pages\Mesa\" />
-    <Folder Include="Pages\Servicio\" />
-    <Folder Include="Pages\Reserva\" />
   </ItemGroup>
 
 </Project>

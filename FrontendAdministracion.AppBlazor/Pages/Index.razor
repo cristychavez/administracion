@@ -12,18 +12,18 @@
         <MudGrid>
             <MudItem xs="12">
                 <MudTextField Label="Usuario" Class="mt-3"
-                              @bind-Value="user.Login" For="@(() => user.Login)" />
+                @bind-Value="user.Login" For="@(() => user.Login)" />
             </MudItem>
             <MudItem xs="12">
                 <MudTextField Label="Clave" Class="mt-3"
-                              @bind-Value="user.Password" For="@(() => user.Password)" InputType="InputType.Password" />
+                @bind-Value="user.Password" For="@(() => user.Password)" InputType="InputType.Password" />
             </MudItem>
             <MudItem xs="12">
                 <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Login</MudButton>
             </MudItem>
         </MudGrid>
     </EditForm>
-     @if (showLeaveAlert)
+    @if (showLeaveAlert)
     {
         <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">No se reconocen las credenciales ingresadas.</MudAlert>
     }
@@ -32,7 +32,7 @@
 @code {
 
     [CascadingParameter]
-    private Task<AuthenticationState> authenticationStateTask { get; set; } //agreagrlos en el imports//
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
     private bool showLeaveAlert = false;
 
     UserLogin user = new UserLogin();

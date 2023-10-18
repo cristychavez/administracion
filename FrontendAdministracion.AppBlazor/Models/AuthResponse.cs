@@ -1,4 +1,4 @@
-﻿namespace FrontendAdministracion.AppBlazor.Models
+﻿namespace Reservas.AdministradorBlazor.Models
 {
     public class AuthResponse
     {
