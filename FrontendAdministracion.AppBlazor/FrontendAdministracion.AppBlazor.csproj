@@ -32,8 +32,14 @@
 
   <ItemGroup>
     <Folder Include="Pages\Mesa\" />
-    <Folder Include="Pages\Servicio\" />
     <Folder Include="Pages\Reserva\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Servicio\Agregar.razor" />
+    <None Include="Pages\Servicio\Editar.razor" />
+    <None Include="Pages\Servicio\Eliminar.razor" />
+    <None Include="Pages\Servicio\Index.razor" />
   </ItemGroup>
 
 </Project>
