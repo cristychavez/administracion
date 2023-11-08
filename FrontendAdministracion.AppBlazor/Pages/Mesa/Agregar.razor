@@ -13,20 +13,16 @@
                 <MudCard>
                     <MudCardContent>
                         <MudTextField Label="Id" @bind-Value="mesa.Id" For="@(() => mesa.Id)" />
+                        <MudTextField Label="Tipo" @bind-Value="mesa.Tipo" For="@(() => mesa.Tipo)" />
+                        <MudTextField Label="Estado" @bind-Value="mesa.Estado" For="@(() => mesa.Estado)" />
                         <MudDivider />
-                        <MudSelect Variant="Variant.Outlined" Label="Estado" AnchorOrigin="Origin.BottomCenter"
-                                   @bind-Value="mesa".Estado" For="@(() => mesa.Estado)">
-                            <MudSelectItem Value="1" >Habilitado</MudSelectItem>
-                            <MudSelectItem Value="2" >Inhabilitado</MudSelectItem>
-                            
-                        </MudSelect>
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Guardar</MudButton>
                     </MudCardActions>
                 </MudCard>
             </EditForm>
-            @if (showLeaveAlert) 
+            @if (showLeaveAlert)
             {
                 <MudAlert Severity="Severity.Error" ContentAlignment="HorizontalAlignment.Center" ShowCloseIcon="true" CloseIconClicked="(() => CloseMe(true))">No se pudo guardar.</MudAlert>
             }
@@ -40,7 +36,7 @@
     Mesa mesa = new Mesa();
 
     protected override async Task OnInitializedAsync()
-    { 
+    {
         Http.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", await _localStorageService.GetItemAsync<string>("token"));
     }
@@ -52,8 +48,9 @@
         StateHasChanged();
     }
 
-    private async Task save(){
-        
+    private async Task save()
+    {
+
         var httpResponse = await Http.PostAsJsonAsync<Mesa>("mesa", mesa);
 
         if (!(httpResponse.StatusCode == System.Net.HttpStatusCode.OK))
@@ -63,7 +60,7 @@
         else
         {
             NavigationManager.NavigateTo("mesa/index");
-        } 
+        }
     }
 
     private void CloseMe(bool value)

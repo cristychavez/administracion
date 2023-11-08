@@ -13,13 +13,9 @@
                 <MudCard>
                     <MudCardContent>
                         <MudTextField Label="Id" @bind-Value="mesa.Id" For="@(() => mesa.Id)" />
+                        <MudTextField Label="Tipo" @bind-Value="mesa.Tipo" For="@(() => mesa.Tipo)" />
+                        <MudTextField Label="Estado" @bind-Value="mesa.Estado" For="@(() => mesa.Estado)" />
                         <MudDivider />
-                        <MudSelect Variant="Variant.Outlined" Label="Zona" AnchorOrigin="Origin.BottomCenter"
-                                   @bind-Value="mesa.Estado" For="@(() => mesa.Estado)">
-                            <MudSelectItem Value="1">Habilitado</MudSelectItem>
-                            <MudSelectItem Value="2">Inhabilitado</MudSelectItem>
-                     
-                        </MudSelect>
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Guardar cambios</MudButton>
@@ -36,7 +32,7 @@
 
 @code {
     [Parameter]
-    public int id{ get; set; }
+    public int id { get; set; }
     private bool showLeaveAlert = false;
     Mesa mesa = new Mesa();
 
@@ -45,7 +41,7 @@
         Http.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", await _localStorageService.GetItemAsync<string>("token"));
 
-        var resp = await Http.GetStringAsync("departamento/" + id);
+        var resp = await Http.GetStringAsync("mesa/" + id);
         mesa = JsonSerializer.Deserialize<Mesa>(resp, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 
@@ -57,7 +53,7 @@
     private async Task saveChanges()
     {
 
-        var httpResponse = await Http.PutAsJsonAsync<Departamento>("mesa/"+ mesa.Id, mesa);
+        var httpResponse = await Http.PutAsJsonAsync<Mesa>("mesa/" + mesa.Id, mesa);
 
         if (!(httpResponse.StatusCode == System.Net.HttpStatusCode.OK))
         {
@@ -73,5 +69,4 @@
     {
         showLeaveAlert = false;
     }
-
 }

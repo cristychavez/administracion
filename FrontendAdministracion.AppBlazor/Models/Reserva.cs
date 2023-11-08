@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Reservas.AdministradorBlazor.Models
+﻿using FrontendAdministracion.AppBlazor.Models;
+using System.ComponentModel.DataAnnotations;
+namespace FrontendAdministracion.AppBlazor.Models
 {
     public class Reserva
     {

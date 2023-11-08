@@ -2,7 +2,7 @@
 @inject HttpClient httpClient
 @inject NavigationManager NavigationManager
 
-<MudText Typo="Typo.h2" Class="ml">Mesa</MudText>
+<MudText Typo="Typo.h2" Class="ml">Mesas</MudText>
 
 <MudTable Items="@mesas" Dense="true" Hover="true" Bordered="true" Striped="true">
     <ToolBarContent>
@@ -12,23 +12,14 @@
     </ToolBarContent>
     <HeaderContent>
         <MudTh>Id</MudTh>
+        <MudTh>Tipo</MudTh>
         <MudTh>Estado</MudTh>
-
     </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
-        @switch(context.Estado){
-            case 1:
-                <MudTd DataLabel="Estado">Habilitado</MudTd>
-                break;
-            case 2:
-                <MudTd DataLabel="Estado">Inhabilitado</MudTd>
-                break;
-        }
+    <RowTemplate>        
         <MudTd>
-            <MudButton Link="@($"/departamento/editar/{context.Id}")" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Tertiary"
+            <MudButton Link="@($"/mesa/editar/{context.Id}")" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Tertiary"
                        Class="text-center">Editar</MudButton>
-            <MudButton Link="@($"/departamento/eliminar/{context.Id}")" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Warning"
+            <MudButton Link="@($"/mesa/eliminar/{context.Id}")" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Warning"
                        Class="text-center">Eliminar</MudButton>
         </MudTd>
     </RowTemplate>
@@ -46,12 +37,14 @@
         await getAll();
     }
 
-    private async Task getAll(){
-        var httpResponse = await httpClient.GetStringAsync("departamento");
+    private async Task getAll()
+    {
+        var httpResponse = await httpClient.GetStringAsync("mesa");
         mesas = JsonSerializer.Deserialize<IEnumerable<Mesa>>(httpResponse, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 
-    private void goAdd(){
+    private void goAdd()
+    {
         NavigationManager.NavigateTo("mesa/agregar");
     }
 }

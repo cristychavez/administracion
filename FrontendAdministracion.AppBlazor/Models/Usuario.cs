@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Reservas.AdministradorBlazor.Models
+namespace FrontendAdministracion.AppBlazor.Models
 {
     public class Usuario
     {

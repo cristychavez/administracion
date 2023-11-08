@@ -12,11 +12,10 @@
                 <DataAnnotationsValidator />
                 <MudCard>
                     <MudCardContent>
-                        <MudTextField Label="Nombre" @bind-Value="servicio.Nombre" For="@(() => servicio.Nombre)" />
-                        <MudDivider />
+                        <MudTextField Label="Id" @bind-Value="servicio.Id" For="@(() => servicio.Id)" />
+                        <MudTextField Label="Tipo" @bind-Value="servicio.Tipo" For="@(() => servicio.Tipo)" />
                         <MudTextField Label="Estado" @bind-Value="servicio.Estado" For="@(() => servicio.Estado)" />
                         <MudDivider />
-
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Guardar cambios</MudButton>
@@ -33,7 +32,7 @@
 
 @code {
     [Parameter]
-    public int id { get; set; }
+    public int id{ get; set; }
     private bool showLeaveAlert = false;
     Servicio servicio = new Servicio();
 

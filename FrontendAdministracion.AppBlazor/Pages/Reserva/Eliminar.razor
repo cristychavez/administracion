@@ -12,14 +12,17 @@
                 <DataAnnotationsValidator />
                 <MudCard>
                     <MudCardContent>
-                        <MudTextField Label="Nombre" @bind-Value="reserva.Nombre" For="@(() => reserva.Nombre)" />
-                        <MudTextField Label="Descripcion" @bind-Value="reserva.Descripcion" For="@(() => reserva.Descripcion)" />
-                        <MudTextField Label="Imagen" @bind-Value="reserva.Imagen" For="@(() => reserva.Imagen)" />
-                        <MudSelect Variant="Variant.Outlined" Label="Departamento" AnchorOrigin="Origin.BottomCenter"
-                        @bind-Value="reserva.IdDepartamento" For="@(() => reserva.IdDepartamento)">
-                            @foreach (var item in departamentos)
+                        <MudTextField Label="Cliente" @bind-Value="reserva.Cliente" For="@(() => reserva.Cliente)" />
+                        <MudTextField Label="Telefono" @bind-Value="reserva.Telefono" For="@(() => reserva.Telefono)" />
+                        <MudTextField Label="Fecha" @bind-Value="reserva.Fecha" For="@(() => reserva.Fecha)" />
+                        <MudTextField Label="Persona" @bind-Value="reserva.Persona" For="@(() => reserva.Persona)" />
+                        <MudTextField Label="HorarioEntrada" @bind-Value="reserva.HorarioEntrada" For="@(() => reserva.HorarioEntrada)" />
+                        <MudTextField Label="HorarioSalida" @bind-Value="reserva.HorarioSalida" For="@(() => reserva.HorarioSalida)" />
+                        <MudSelect Variant="Variant.Outlined" Label="Servicio" AnchorOrigin="Origin.BottomCenter"
+                        @bind-Value="reserva.IdServicio" For="@(() => reserva.IdServicio)">
+                            @foreach (var item in servicios)
                             {
-                                <MudSelectItem Value="@item.Id">@item.Nombre</MudSelectItem>
+                                <MudSelectItem Value="@item.Id">@item.Tipo</MudSelectItem>
                             }
                         </MudSelect>
                     </MudCardContent>
@@ -40,15 +43,15 @@
     [Parameter]
     public int id { get; set; }
 
-    private IEnumerable<Departamento> departamentos = new List<Departamento>();
+    private IEnumerable<Servicio> servicios = new List<Servicio>();
     private bool showLeaveAlert = false;
-    Reserva reserva = new reserva();
+    Reserva reserva = new Reserva();
 
     protected override async Task OnInitializedAsync()
     {
         Http.DefaultRequestHeaders.Authorization =
         new AuthenticationHeaderValue("Bearer", await _localStorageService.GetItemAsync<string>("token"));
-        await getDepartamentos();
+        await getServicios();
 
         var resp = await Http.GetStringAsync("reserva/" + id);
         reserva = JsonSerializer.Deserialize<Reserva>(resp, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
@@ -78,9 +81,9 @@
         showLeaveAlert = false;
     }
 
-    private async Task getDepartamentos()
+    private async Task getServicios()
     {
-        var httpResponse = await Http.GetStringAsync("departamento");
-        departamentos = JsonSerializer.Deserialize<IEnumerable<Departamento>>(httpResponse, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        var httpResponse = await Http.GetStringAsync("servicio");
+        servicios = JsonSerializer.Deserialize<IEnumerable<Servicio>>(httpResponse, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
     }
 }

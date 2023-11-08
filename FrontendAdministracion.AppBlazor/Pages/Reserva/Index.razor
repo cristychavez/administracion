@@ -11,17 +11,20 @@
         <MudTextField @bind-Value="searchText" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
-        <MudTh>Id</MudTh>
-        <MudTh>Nombre</MudTh>
-        <MudTh>Servicio</MudTh>
-        <MudTh>Descripción</MudTh>
-        <MudTh>Acciones</MudTh>
+        <MudTh>Cliente</MudTh>
+        <MudTh>Telefono</MudTh>
+        <MudTh>Fecha</MudTh>
+        <MudTh>Persona</MudTh>
+        <MudTh>HorarioEntrada</MudTh>
+        <MudTh>HorarioSalida</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Id">@context.Id</MudTd>
-        <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
-        <MudTd DataLabel="Servicio">@context.Servicio.Nombre</MudTd>
-        <MudTd DataLabel="Descripcion">@context.Descripcion</MudTd>
+        <MudTd DataLabel="Cliente">@context.Cliente</MudTd>
+        <MudTd DataLabel="Telefono">@context.Telefono</MudTd>
+        <MudTd DataLabel="Fecha">@context.Fecha</MudTd>
+        <MudTd DataLabel="Persona">@context.Persona</MudTd>
+        <MudTd DataLabel="HorarioEntrada">@context.HorarioEntrada</MudTd>
+        <MudTd DataLabel="HorarioSalida">@context.HorarioSalida</MudTd>
         <MudTd>
             <MudButton Link="@($"/reserva/editar/{context.Id}")" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Tertiary"
                        Class="text-center">Editar</MudButton>

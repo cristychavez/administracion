@@ -1,4 +1,4 @@
-﻿@page "/departamento/agregar"
+﻿@page "/servicio/agregar"
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 @inject ILocalStorageService _localStorageService
@@ -12,11 +12,10 @@
                 <DataAnnotationsValidator />
                 <MudCard>
                     <MudCardContent>
-                        <MudTextField Label="Nombre" @bind-Value="servicio.Nombre" For="@(() => servicio.Nombre)" />
-                        <MudDivider />
+                        <MudTextField Label="Id" @bind-Value="servicio.Id" For="@(() => servicio.Id)" />
+                        <MudTextField Label="Tipo" @bind-Value="servicio.Tipo" For="@(() => servicio.Tipo)" />
                         <MudTextField Label="Estado" @bind-Value="servicio.Estado" For="@(() => servicio.Estado)" />
                         <MudDivider />
-
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Guardar</MudButton>
@@ -37,7 +36,7 @@
     Servicio servicio = new Servicio();
 
     protected override async Task OnInitializedAsync()
-    {
+    { 
         Http.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", await _localStorageService.GetItemAsync<string>("token"));
     }
@@ -49,9 +48,8 @@
         StateHasChanged();
     }
 
-    private async Task save()
-    {
-
+    private async Task save(){
+        
         var httpResponse = await Http.PostAsJsonAsync<Servicio>("servicio", servicio);
 
         if (!(httpResponse.StatusCode == System.Net.HttpStatusCode.OK))
@@ -61,7 +59,7 @@
         else
         {
             NavigationManager.NavigateTo("servicio/index");
-        }
+        } 
     }
 
     private void CloseMe(bool value)
@@ -69,5 +67,3 @@
         showLeaveAlert = false;
     }
 }
-1 - Agregar.txt
-Mostrando 2 - Editar.txt.

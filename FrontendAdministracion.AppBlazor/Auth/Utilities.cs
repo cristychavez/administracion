@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace DeptosES.AdministradorBlazor.Auth
+namespace FrontendAdministracion.AppBlazor.Auth
 {
     public class Utilities
     {
@@ -11,7 +11,7 @@ namespace DeptosES.AdministradorBlazor.Auth
             string hashed;
             using (MD5 md5 = MD5.Create())
             {
-                hashed = string.Join(string.Empty, md5.ComputeHash(Encoding.UTF8.GetBytes(str)).Select(b => b.ToString("x2")));
+               hashed = string.Join(string.Empty, md5.ComputeHash(Encoding.UTF8.GetBytes(str)).Select(b => b.ToString("x2")));
             }
             return hashed;
         }
